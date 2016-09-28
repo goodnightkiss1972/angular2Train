@@ -1,0 +1,22 @@
+<header>
+  <h1>
+    <a [routerLink]="['/toys']">{{'title' | i18nSelect:translate}}</a>
+  </h1>
+
+  <aside class="langs">
+    <span
+      *ngFor="let lang of langs | async"
+      [ngClass]="{selected: lang.selected}"
+      (click)="selectLang(lang)"
+    >
+      {{lang.label}}
+    </span>
+  </aside>
+
+  <aside>
+    <a [routerLink]="['/basket']">
+      <i class="mdi mdi-basket"></i>
+      <span *ngIf="counter">{{counter | async}}</span>
+    </a>
+  </aside>
+</header>

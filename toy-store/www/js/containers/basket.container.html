@@ -1,0 +1,19 @@
+<main class="basket">
+
+  <article *ngFor="let toy of toys | async">
+    <i class="mdi mdi-{{toy.icon}}"></i>
+    <strong>{{toy.title}}</strong>
+    <i class="mdi mdi-close-circle" (click)="delete(toy)"></i>
+    <span>{{toy.price | currency:'EUR':true:'1.2-2' }}</span>
+  </article>
+
+  <aside>
+    <strong>Total :</strong>
+    <span>{{price | async | currency:'EUR':true:'1.2-2'}}</span>
+  </aside>
+
+  <footer>
+    <button (click)="checkout()" [disabled]="!price">{{'checkout' | i18nSelect:translate}}</button>
+  </footer>
+
+</main>

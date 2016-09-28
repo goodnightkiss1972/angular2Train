@@ -1,0 +1,68 @@
+<main class="user">
+
+  <p *ngIf="!user.payed" class="message">
+    {{'paymsg' | i18nSelect:translate}} : {{price | async | currency:'EUR':'1.2-2'}}
+  </p>
+
+  <p *ngIf="user.payed" class="message">
+    {{'bravo' | i18nSelect:translate}}
+  </p>
+
+  <form (ngSubmit)="payIt()" #userForm="ngForm" *ngIf="!user.payed">
+
+    <p>
+      <label for="firstname">{{'firstname' | i18nSelect:translate}}</label>
+      <input
+        type="text"
+        [(ngModel)]="user.firstname"
+        required
+        name="firstname"
+        #firstname="ngModel"
+      >
+    </p>
+
+    <p>
+      <label for="lastname">{{'lastname' | i18nSelect:translate}}</label>
+      <input
+        type="text"
+        [(ngModel)]="user.lastname"
+        required
+        name="lastname"
+        #lastname="ngModel"
+      >
+    </p>
+
+    <p>
+      <label for="email">Email</label>
+      <input
+        type="email"
+        [(ngModel)]="user.email"
+        required
+        name="email"
+        #email="ngModel"
+        pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
+      >
+    </p>
+
+    <p>
+      <label for="creditcard">{{'cb' | i18nSelect:translate}}</label>
+      <input
+        type="text"
+        [(ngModel)]="user.creditcard"
+        required
+        pattern="[0-9]+"
+        minlength="16"
+        maxlength="16"
+        name="creditcard"
+        #creditcard="ngModel"
+        [readonly]="!email.valid"
+      >
+    </p>
+
+    <footer>
+      <button type="submit" [disabled]="!userForm.form.valid">{{'payit' | i18nSelect:translate}}</button>
+    </footer>
+
+  </form>
+
+</main>
